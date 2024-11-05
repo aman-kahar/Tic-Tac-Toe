@@ -21,10 +21,9 @@ const checkWinner = () => {
     let b = boxBtn[pattern[1]].innerText;
     let c = boxBtn[pattern[2]].innerText;
 
-    if (disableCount === 9) {
+    if (disableCount === 9 && (a !== b || b !== c)) {
       showWinner();
     }
-
     if (a != "" && b != "" && c != "") {
       if (a === b && b === c) {
         showWinner();
