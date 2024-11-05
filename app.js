@@ -2,6 +2,7 @@ let boxBtn = document.querySelectorAll(".boxBtn");
 let resetBtn = document.querySelector(".resetBtn");
 
 let player1 = true;
+let disableCount = 0;
 
 const winningPatterns = [
   [0, 1, 2],
@@ -19,6 +20,10 @@ const checkWinner = () => {
     let a = boxBtn[pattern[0]].innerText;
     let b = boxBtn[pattern[1]].innerText;
     let c = boxBtn[pattern[2]].innerText;
+
+    if (disableCount === 9) {
+      showWinner();
+    }
 
     if (a != "" && b != "" && c != "") {
       if (a === b && b === c) {
@@ -43,6 +48,8 @@ boxBtn.forEach((box) => {
     }
 
     box.disabled = true;
+    disableCount++;
+    console.log("second", disableCount);
     checkWinner();
   });
 });
@@ -59,6 +66,9 @@ function showWinner() {
   if (player1) {
     winHeading.style.color = "blue";
     winHeading.innerText = 'Player "O" wins!';
+  } else if (disableCount === 9) {
+    winHeading.style.color = "powderblue";
+    winHeading.innerText = "Match Tie";
   } else {
     winHeading.style.color = "red";
     winHeading.innerText = 'Player "X" wins!';
@@ -74,6 +84,7 @@ function showWinner() {
 
 function reset() {
   boxBtn.forEach((box) => {
+    disableCount = 0;
     box.style.color = "";
     box.style.boxShadow = "";
     box.textContent = "";
